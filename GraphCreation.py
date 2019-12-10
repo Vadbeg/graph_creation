@@ -45,7 +45,7 @@ def have_predicate(relationships, name):
 
 def create_graph_structure(relationships):
     """
-    Creates graph structure from raw relationships file
+    Creates graph structure from raw relationships dict
 
 
     :param relationships: raw dict of relationships
@@ -83,7 +83,34 @@ def create_graph_structure(relationships):
     return result
 
 
-def create_graph(graph_structure, filepath):
+def create_graph_structure_attributes(attributes):
+    """
+    Creates graph attributes structure from raw attributes dict
+
+    :param attributes: raw dict of attributes
+    :return: processed attributes
+    """
+
+    result = dict()
+
+    for attribute in attributes['attributes']:
+        if 'attributes' in attribute.keys():
+            real_attributes = attribute['attributes']
+        else:
+            real_attributes = list()
+
+        subjects = attribute['names']
+
+        for subject in subjects:
+            result.setdefault(subject, set())
+
+            for real_attribute in real_attributes:
+                result[subject].add(real_attribute)
+
+    return result
+
+
+def create_graph(graph_structure, graph_structure_attributes, filepath):
     """
     Creates and save graph from given processed relationships
 
@@ -106,6 +133,17 @@ def create_graph(graph_structure, filepath):
                 graph.add_node(el2)
 
             graph.add_edge(el1, el2, title=predicate, label=predicate)
+
+    for subject, attributes in graph_structure_attributes.items():
+        if subject not in graph.nodes:
+            graph.add_node(subject)
+
+        for attribute in attributes:
+
+            if attribute not in graph.nodes:
+                graph.add_node(attribute, color='red')
+
+            graph.add_edge(subject, attribute, color='red')
 
     graph.save_graph(filepath)
 
@@ -143,5 +181,7 @@ def add_image(filepath, image_src):
 filepath = 'graph.html'
 
 graph_structure = create_graph_structure(relationships)
-create_graph(graph_structure, filepath)
+graph_structure_attributes = create_graph_structure_attributes(attributes)
+
+create_graph(graph_structure, graph_structure_attributes, filepath)
 add_image(filepath=filepath, image_src=image_url)
