@@ -8,7 +8,7 @@ files with raw data about images
 To download project:
 
 ```
-git clone 
+git clone https://github.com/Vadbeg/graph_creation.git
 ```
 
 ## Installing
