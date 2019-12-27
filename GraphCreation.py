@@ -99,7 +99,10 @@ def create_graph_structure_attributes(attributes):
         else:
             real_attributes = list()
 
-        subjects = attribute['names']
+        if 'names' in attribute.keys():
+            subjects = attribute['names']
+        else:
+            subjects = ''
 
         for subject in subjects:
             result.setdefault(subject, set())
