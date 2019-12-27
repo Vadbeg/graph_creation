@@ -53,7 +53,18 @@ And the same, file should be with just one image:
   ]}
 ```
 
-You need to add them into <span style="color:red">data</span> directory
+You need to add them into <i>data</i> directory
+
+## Run script
+
+To run script you need to print this command in CL (in <i>graph_creation</i> directory):
+
+```
+>> python GraphCreation.py
+```
+
+After command execution, file <i>graph.html</i> will appear in <i>graph_creation</i> directory.
+ 
 
 ## Build With
 
