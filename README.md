@@ -1,30 +1,25 @@
-# graph_creation
+# Graph creation
 
 This is a project for creating graphs from json
-files with raw data about images
+files with raw data about images. 
 
-## Getting started
+In this project you can:
+1. Show graphs from VisualGenome json files using pyvis library
+2. Transform this graph into OSTIS .gwf graph
 
-To download project:
+## Download project
 
 ```
 git clone https://github.com/Vadbeg/graph_creation.git
 ```
 
 ## Installing
-To use this project you need to install
-[pyvis](https://pyvis.readthedocs.io/en/latest/) library
 
-To install it, print:
+To install all requirements, print (in main directory):
 
 ```
-pip install pyvis
+pip install -e .
 ```
-
-## Requirements
-
-- python >= 3.6
-- pyvis
 
 ## Files which you need:
 
@@ -55,21 +50,31 @@ And the same, file should be with just one image:
 
 You need to add them into <i>data</i> directory
 
-## Run script
+## Transform <i>json</i> to <i>html</i>
 
-To run script you need to print this command in CL (in <i>graph_creation</i> directory):
+To run script you need to print this command in CL (in <i>pyvis_graph</i> directory):
 
 ```
 >> python GraphCreation.py
 ```
 
-After command execution, file <i>graph.html</i> will appear in <i>graph_creation</i> directory.
+After command execution, file <i>graph.html</i> will appear in <i>pyvis_graph</i> directory.
  
+ ## Transform <i>json</i> to <i>gwf</i>
+ 
+To run script you need to print this command in CL (in <i>gwf_graph</i> directory):
 
+```
+>> python json2gwf.py
+```
+After command execution, file <i>res.gwf</i> will appear in <i>gwf_graph/gwf_examples</i> directory.
+ 
 ## Build With
 
 * [pyvis](https://pyvis.readthedocs.io/en/latest/) - interactive network visualizations
+* [lxml](https://lxml.de) - xml parser used
 
 ## Authors
 
 * **Vadim Titko** aka *Vadbeg* - [GitHub](https://github.com/Vadbeg/PythonHomework/commits?author=Vadbeg)
+| [LinkedIn](https://www.linkedin.com/in/vadim-titko-89ab16149/)

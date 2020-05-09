@@ -10,6 +10,7 @@ from typing import Tuple, Dict, Set, List, Optional
 import json
 
 from lxml import etree
+
 from pyvis_graph.GraphCreation import create_graph_structure, create_graph_structure_attributes
 
 from gwf_graph.gwf_template import GWF
