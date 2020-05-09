@@ -9,10 +9,12 @@ Script for creating graph which describe given image
 import json
 import os
 
+from typing import List, Set, Tuple, Dict, Optional
+
 from pyvis.network import Network
 
 
-def have_predicate(relationships, name):
+def have_predicate(relationships: Set[Optional[Tuple[str, str]]], name: str) -> bool:
     """
     Check if subject have more than one predicate
     to the same object
@@ -29,7 +31,7 @@ def have_predicate(relationships, name):
     return False
 
 
-def create_graph_structure(relationships):
+def create_graph_structure(relationships: Dict) -> Dict[str, Set[Tuple[str, str]]]:
     """
     Creates graph structure from raw relationships dict
 
@@ -69,7 +71,7 @@ def create_graph_structure(relationships):
     return result
 
 
-def create_graph_structure_attributes(attributes):
+def create_graph_structure_attributes(attributes: Dict) -> Dict[str, Set[str]]:
     """
     Creates graph attributes structure from raw attributes dict
 
@@ -99,11 +101,14 @@ def create_graph_structure_attributes(attributes):
     return result
 
 
-def create_graph(graph_structure, graph_structure_attributes, filepath):
+def create_graph(graph_structure: Dict[str, Set[Tuple[str, str]]],
+                 graph_structure_attributes: Dict[str, Set[str]],
+                 filepath: str):
     """
     Creates and save graph from given processed relationships
 
     :param graph_structure: processed relationships
+    :param graph_structure_attributes: attributes for every node
     :param filepath: path in which we like to save file
     :return: None
     """
@@ -137,7 +142,7 @@ def create_graph(graph_structure, graph_structure_attributes, filepath):
     graph.save_graph(filepath)
 
 
-def add_image(filepath, image_src):
+def add_image(filepath: str, image_src: str):
     """
     Adds image into created html file
 

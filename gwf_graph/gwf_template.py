@@ -1,7 +1,7 @@
 import os
 import json
 import random
-from typing import Tuple
+from typing import Tuple, List
 
 from lxml import etree
 
@@ -28,9 +28,12 @@ class GWF:
         return id
 
     @staticmethod
-    def __get_random_coord__() -> Tuple[int, int]:
+    def __get_random_coord__() -> Tuple[str, str]:
         x = random.randint(0, 1000)
         y = random.randint(0, 1000)
+
+        x = str(x)
+        y = str(y)
 
         return x, y
 
@@ -71,6 +74,27 @@ class GWF:
 
         return arc
 
+    def __add_contour__(self, all_nodes_in_contour: List[etree.SubElement]):
+        contour = etree.SubElement(self.static_sector, 'contour')
+
+        contour.attrib['type'] = ''
+        contour.attrib['idtf'] = ''
+        contour.attrib['id'] = str(self.__get_unique_id__())
+        contour.attrib['parent'] = '0'
+
+        content = etree.SubElement(contour, 'points')
+        print(dict(zip(('x', 'y'), self.__get_random_coord__())))
+        point1 = etree.SubElement(content, 'point', attrib=dict(zip(('x', 'y'), self.__get_random_coord__())))
+        point2 = etree.SubElement(content, 'point', attrib=dict(zip(('x', 'y'), self.__get_random_coord__())))
+        point3 = etree.SubElement(content, 'point', attrib=dict(zip(('x', 'y'), self.__get_random_coord__())))
+
+        for node in all_nodes_in_contour:
+            # print(contour)
+            print(node)
+            node.attrib['parent'] = contour.attrib['id']
+
+        return contour
+
     def add_group_node(self, name: str) -> etree.SubElement:
         node = self.__add_node__(name=name, node_type='node/const/group')
 
@@ -100,6 +124,11 @@ class GWF:
         arc = self.__add_arc__(id1=id1, id2=id2, arc_type='pair/const/orient')
 
         return arc
+
+    def add_contour(self, all_nodes_in_contour: List[etree.SubElement]) -> etree.SubElement:
+        contour = self.__add_contour__(all_nodes_in_contour=all_nodes_in_contour)
+
+        return contour
 
     def save(self, path: str):
         res = etree.tostring(self.root, pretty_print=True)
