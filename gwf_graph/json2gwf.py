@@ -54,8 +54,8 @@ def add_all_attributes(gwf: GWF, all_attributes: List[Tuple[str, Set[str]]]):
 
 def transform(gwf: GWF, all_relations: List[Tuple[str, Set[Tuple[str, str]]]],
               all_attributes: List[Tuple[str, Set[str]]], save_path: str):
-    add_all_relations(gwf, all_relations=all_relations)
-    # add_all_attributes(gwf, all_attributes=all_attributes)
+    # add_all_relations(gwf, all_relations=all_relations)
+    add_all_attributes(gwf, all_attributes=all_attributes)
 
     gwf.save(save_path)
 
