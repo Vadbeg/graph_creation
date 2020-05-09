@@ -117,7 +117,10 @@ venv.bak/
 
 *.pkl
 *.fb2
-*.html
+
+#project folders
+/gwf_graph/gwf_examples
+
 
 # mypy
 .mypy_cache/

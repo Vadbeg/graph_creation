@@ -1,0 +1,5 @@
+{"image_id": 1,
+  "image_url": "https://cs.stanford.edu/people/rak248/VG_100K_2/1.jpg",
+  "attributes": [
+    {"synsets": ["clock.n.01"], "h": 339, "object_id": 1058498, "names": ["shade"], "w": 79, "attributes": ["green", "tall"], "y": 91, "x": 421}
+]}

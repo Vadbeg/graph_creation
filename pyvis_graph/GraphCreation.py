@@ -12,20 +12,6 @@ import os
 from pyvis.network import Network
 
 
-directory = 'data'
-
-filepath_relationship = os.path.join(directory, 'relationships.json')
-filepath_attributes = os.path.join(directory, 'attributes.json')
-
-with open(filepath_relationship, 'rb') as file:
-    relationships = json.load(file)
-
-with open(filepath_attributes, 'rb') as file:
-    attributes = json.load(file)
-
-image_url = attributes['image_url']
-
-
 def have_predicate(relationships, name):
     """
     Check if subject have more than one predicate
@@ -181,10 +167,24 @@ def add_image(filepath, image_src):
         file.write(''.join(res_html))
 
 
-filepath = 'graph.html'
+if __name__ == '__main__':
+    directory = '../data'
 
-graph_structure = create_graph_structure(relationships)
-graph_structure_attributes = create_graph_structure_attributes(attributes)
+    filepath_relationship = os.path.join(directory, 'rel_test.json')
+    filepath_attributes = os.path.join(directory, 'attr_test.json')
 
-create_graph(graph_structure, graph_structure_attributes, filepath)
-add_image(filepath=filepath, image_src=image_url)
+    with open(filepath_relationship, 'rb') as file:
+        relationships = json.load(file)
+
+    with open(filepath_attributes, 'rb') as file:
+        attributes = json.load(file)
+
+    image_url = attributes['image_url']
+
+    filepath = 'graph.html'
+
+    graph_structure = create_graph_structure(relationships)
+    graph_structure_attributes = create_graph_structure_attributes(attributes)
+
+    create_graph(graph_structure, graph_structure_attributes, filepath)
+    add_image(filepath=filepath, image_src=image_url)

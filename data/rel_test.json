@@ -1,0 +1,4 @@
+{"relationships": [
+  {"predicate": "on", "object": {"h": 290, "object_id": 1058534, "merged_object_ids": [5046], "synsets": ["sidewalk.n.01"], "w": 722, "y": 308, "x": 78, "names": ["sidewalk"]}, "relationship_id": 15927, "synsets": ["along.r.01"], "subject": {"name": "shade", "h": 192, "synsets": ["shade.n.01"], "object_id": 5045, "w": 274, "y": 338, "x": 119}},
+  {"predicate": "above", "object": {"h": 290, "object_id": 1058534, "merged_object_ids": [5046], "synsets": ["sidewalk.n.01"], "w": 722, "y": 308, "x": 78, "names": ["queen"]}, "relationship_id": 15927, "synsets": ["along.r.01"], "subject": {"name": "shade", "h": 192, "synsets": ["shade.n.01"], "object_id": 5045, "w": 274, "y": 338, "x": 119}}],
+  "image_id": 1}
