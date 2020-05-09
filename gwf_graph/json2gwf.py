@@ -1,5 +1,11 @@
+"""
+Main converter module
+
+@by Vadbeg
+"""
+
 import os
-from typing import Tuple, Dict, Set, List
+from typing import Tuple, Dict, Set, List, Optional
 
 import json
 
@@ -10,6 +16,14 @@ from gwf_graph.gwf_template import GWF
 
 
 def add_class_to_general_node(gwf: GWF, general_node: etree.SubElement) -> List[etree.SubElement]:
+    """
+    Adds class to general node (every general node need some kind of class)
+
+    :param gwf: gwf template class
+    :param general_node: general node
+    :return: elements created in this function
+    """
+
     class_node = gwf.add_group_node(name='concept_' + general_node.attrib['idtf'])
     # class_node = gwf.add_group_node(name='')
 
@@ -21,6 +35,15 @@ def add_class_to_general_node(gwf: GWF, general_node: etree.SubElement) -> List[
 
 
 def add_relation(gwf: GWF, main_node_name: str, relations: Set[Tuple[str, str]]) -> List[etree.SubElement]:
+    """
+    Adds relation between nodes
+
+    :param gwf: gwf template class
+    :param main_node_name: name of node from which relation begins
+    :param relations: given relations
+    :return: elements created in this function
+    """
+
     contour_els_list = list()
 
     main_node = gwf.add_general_node(main_node_name)
@@ -51,6 +74,15 @@ def add_relation(gwf: GWF, main_node_name: str, relations: Set[Tuple[str, str]])
 
 
 def add_attribute(gwf: GWF, main_node_name: str, attributes: Set[str]) -> List[etree.SubElement]:
+    """
+    Creates attributes from given nodes
+
+    :param gwf: gwf template class
+    :param main_node_name: name of node from which relation begins
+    :param attributes: give attributes
+    :return: elements created in this function
+    """
+
     contour_els_list = list()
 
     main_node = gwf.add_general_node(main_node_name)
@@ -71,6 +103,14 @@ def add_attribute(gwf: GWF, main_node_name: str, attributes: Set[str]) -> List[e
 
 
 def add_all_relations(gwf: GWF, all_relations: List[Tuple[str, Set[Tuple[str, str]]]]) -> List[etree.SubElement]:
+    """
+    Creates all relations
+
+    :param gwf: gwf template class
+    :param all_relations: all relations
+    :return: elements created in this function
+    """
+
     nodes_list = list()
 
     for curr_relation in all_relations:
@@ -84,6 +124,14 @@ def add_all_relations(gwf: GWF, all_relations: List[Tuple[str, Set[Tuple[str, st
 
 
 def add_all_attributes(gwf: GWF, all_attributes: List[Tuple[str, Set[str]]]):
+    """
+    Creates all attributes
+
+    :param gwf: gwf template object
+    :param all_attributes: all attributes
+    :return: elements created in this function
+    """
+
     nodes_list = list()
 
     for curr_attribute in all_attributes:
@@ -97,6 +145,15 @@ def add_all_attributes(gwf: GWF, all_attributes: List[Tuple[str, Set[str]]]):
 
 
 def wrap_in_contour(gwf: GWF, all_nodes_in_contour: List[etree.SubElement], contour_name) -> etree.SubElement:
+    """
+    Creates wrapper around all elements. To make easier access to them in ostis
+
+    :param gwf: gwf template object
+    :param all_nodes_in_contour: all nodes which we need to add in contour
+    :param contour_name: name of contour
+    :return: contour element (etree element)
+    """
+
     contour = gwf.add_contour(all_nodes_in_contour=all_nodes_in_contour)
 
     name_node = gwf.add_general_node(contour_name)
@@ -108,6 +165,16 @@ def wrap_in_contour(gwf: GWF, all_nodes_in_contour: List[etree.SubElement], cont
 def transform(gwf: GWF, all_relations: List[Tuple[str, Set[Tuple[str, str]]]],
               all_attributes: List[Tuple[str, Set[str]]], name: str,
               save_path: str):
+    """
+    Preforms transform on all data.
+
+    :param gwf: gwf template object
+    :param all_relations: all relations from data
+    :param all_attributes: all attributes from data
+    :param name: name of conour
+    :param save_path: path to which we want to save them
+    """
+
     nodes = list()
 
     nodes_list_relations = add_all_relations(gwf, all_relations=all_relations)
@@ -115,8 +182,6 @@ def transform(gwf: GWF, all_relations: List[Tuple[str, Set[Tuple[str, str]]]],
 
     nodes.extend(nodes_list_relations)
     nodes.extend(nodes_list_attributes)
-
-    print(f'Nodes to wrap: {nodes}')
 
     contour = wrap_in_contour(gwf, all_nodes_in_contour=nodes, contour_name=name)
 
