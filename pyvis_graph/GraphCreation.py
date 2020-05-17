@@ -172,11 +172,19 @@ def add_image(filepath: str, image_src: str):
         file.write(''.join(res_html))
 
 
-if __name__ == '__main__':
+def main(relationships_file: str, attributes_file: str, res_file: str):
+    """
+    Main method. Preforms transformation.
+
+    :param relationships_file: name of file with relations
+    :param attributes_file: name of file with attributes
+    :param res_file: file for res .html file
+    """
+
     directory = '../data'
 
-    filepath_relationship = os.path.join(directory, 'rel_test.json')
-    filepath_attributes = os.path.join(directory, 'attr_test.json')
+    filepath_relationship = os.path.join(directory, relationships_file)
+    filepath_attributes = os.path.join(directory, attributes_file)
 
     with open(filepath_relationship, 'rb') as file:
         relationships = json.load(file)
@@ -186,10 +194,12 @@ if __name__ == '__main__':
 
     image_url = attributes['image_url']
 
-    filepath = 'graph.html'
-
     graph_structure = create_graph_structure(relationships)
     graph_structure_attributes = create_graph_structure_attributes(attributes)
 
-    create_graph(graph_structure, graph_structure_attributes, filepath)
-    add_image(filepath=filepath, image_src=image_url)
+    create_graph(graph_structure, graph_structure_attributes, res_file)
+    add_image(filepath=res_file, image_src=image_url)
+
+
+if __name__ == '__main__':
+    main(relationships_file='relationships3.json', attributes_file='attributes3.json', res_file='res.html')

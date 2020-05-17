@@ -189,12 +189,20 @@ def transform(gwf: GWF, all_relations: List[Tuple[str, Set[Tuple[str, str]]]],
     gwf.save(save_path)
 
 
-if __name__ == '__main__':
+def main(relationships_file: str, attributes_file: str, res_file: str):
+    """
+    Main method. Preforms transformation.
+
+    :param relationships_file: name of file with relations
+    :param attributes_file: name of file with attributes
+    :param res_file: file for res .gwf file
+    """
+
     directory = '../data'
     print(os.listdir(directory))
 
-    filepath_relationship = os.path.join(directory, 'relationships.json')
-    filepath_attributes = os.path.join(directory, 'attributes.json')
+    filepath_relationship = os.path.join(directory, relationships_file)
+    filepath_attributes = os.path.join(directory, attributes_file)
 
     with open(filepath_relationship, 'rb') as file:
         relationships = json.load(file)
@@ -219,4 +227,11 @@ if __name__ == '__main__':
         os.makedirs('gwf_examples')
 
     transform(gwf, all_relations=res_rel, all_attributes=res_attr,
-              save_path='gwf_examples/res.gwf', name='first_image')
+              save_path=os.path.join('gwf_examples', res_file), name='first_image')
+
+
+if __name__ == '__main__':
+    relationships_file = 'relationships2.json'
+    attributes_file = 'attributes2.json'
+
+    main(relationships_file=relationships_file, attributes_file=attributes_file, res_file='res.gwf')
